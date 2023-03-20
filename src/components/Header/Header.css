@@ -7,7 +7,6 @@
 }
 
 .header__nav {
-  max-width: 183px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,12 +16,17 @@
   text-decoration: none;
   margin-left: 30px;
   font-size: 12px;
-  font-weight: 500;
   line-height: 1.33;
+  color: #FFFFFF;
+}
+
+.header__link_active {
+  font-weight: 500;
 }
 
 .header__sing-up {
   color: #FFFFFF;
+  font-weight: 500;
   transition: opacity 0.5s;
 }
 
@@ -35,6 +39,7 @@
   color: #000000;
   background-color: #3DDC84;
   border-radius: 3px;
+  font-weight: 500;
   transition: opacity 0.5s;
 }
 

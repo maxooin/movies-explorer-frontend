@@ -6,10 +6,10 @@ const Header = ({ loggedIn }) => {
     <header className='header'>
       <img src={ logo } alt='Logo'/>
       { loggedIn ? (
-          <div>
-            <Link to='/'></Link>
-            <Link to='/'></Link>
-          </div>
+          <nav>
+            <Link className='header__link' to='/'>Фильмы</Link>
+            <Link className='header__link' to='/'>Сохранённые фильмы</Link>
+          </nav>
         )
         : (
           <nav className='header__nav'>
