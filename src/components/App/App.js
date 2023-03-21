@@ -2,8 +2,11 @@ import Header from "../Header/Header";
 import { Route, Routes } from "react-router-dom";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
+import NotFound from "../NotFound/NotFound";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
-const loggedIn = true;
+const loggedIn = false;
 
 
 function App() {
@@ -19,7 +22,9 @@ function App() {
             <Footer />
           </div>
         } />
-        <Route path='*' element={ <><h1>Not Found</h1></> } />
+        <Route path='*' element={ <NotFound /> } />
+        <Route path='/signup' element={ <Register /> } />
+        <Route path='/signin' element={ <Login /> } />
       </Routes>
     </>
   );
