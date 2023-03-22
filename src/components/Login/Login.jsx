@@ -15,9 +15,9 @@ const Login = () => {
             textbtn='Войти'
             handleSubmit={ handleSubmit }
             isValid={ isValid }>
-        <label className='register__label'>
+        <label className='login__label'>
           E-mail
-          <input className='register__input'
+          <input className='login__input'
                  id='email'
                  name='email'
                  type='email'
@@ -25,9 +25,9 @@ const Login = () => {
                  onChange={ handleChange }
                  required
           />
-          <span className='register__error'>{ errors['email'] || '' }</span>
+          <span className='login__error'>{ errors['email'] || '' }</span>
         </label>
-        <label className='register__label'>
+        <label className='login__label'>
           Пароль
           <input className='register__input'
                  id='password'
@@ -38,7 +38,7 @@ const Login = () => {
                  value={ values['password'] || '' }
                  onChange={ handleChange }
                  required />
-          <span className='register__error'>{ errors['password'] || '' }</span>
+          <span className='login__error'>{ errors['password'] || '' }</span>
         </label>
       </Form>
     </>

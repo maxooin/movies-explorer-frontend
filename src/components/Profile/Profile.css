@@ -1,0 +1,141 @@
+.profile {
+  width: 410px;
+  margin: 74px auto 70px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__title {
+  margin: 0;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.profile__form {
+  margin-top: 123px;
+}
+
+.profile__fieldset {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.profile__label {
+  width: 100%;
+  padding: 17px 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    'title . input'
+    'error error error';
+  justify-content: space-between;
+}
+
+.profile__label:nth-child(2n) {
+  border-top: 1px solid #424242;
+  margin-bottom: 186px;
+}
+
+.profile__span {
+  max-width: 50px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 11px;
+  grid-area: title;
+}
+
+.profile__input {
+  padding: 0;
+  max-width: 300px;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 11px;
+  border: none;
+  background-color: transparent;
+  text-align: right;
+  grid-area: input;
+  outline: none;
+}
+
+.profile__input:invalid {
+  color: #ee3465;
+}
+
+.profile__input:placeholder-shown {
+  text-align: right;
+}
+
+.profile__error {
+  padding: 0;
+  min-height: 16px;
+  color: #ee3465;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.181;
+  text-align: center;
+  grid-area: error;
+}
+
+.profile__button-submit {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.profile__button-submit:hover {
+  opacity: 0.7;
+}
+
+.profile__button-submit:disabled {
+  color: #8b8b8b;
+}
+
+.profile__button-submit:disabled:hover {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.profile__button-exit {
+  margin-top: 16px;
+  color: #ee3465;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.profile__button-exit:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile {
+    margin: 236px auto 269px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile {
+    width: 260px;
+    margin: 70px auto 40px;
+  }
+
+  .profile__form {
+    margin-top: 80px;
+  }
+}
