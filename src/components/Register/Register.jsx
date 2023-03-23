@@ -25,6 +25,7 @@ const Register = () => {
                  maxLength={ 30 }
                  value={ values['username'] || '' }
                  onChange={ handleChange }
+                 placeholder='Имя'
                  required />
           <span className='register__error'>{ errors['username'] || '' }</span>
         </label>
@@ -36,6 +37,7 @@ const Register = () => {
                  type='email'
                  value={ values['email'] || '' }
                  onChange={ handleChange }
+                 placeholder='Email'
                  required
           />
           <span className='register__error'>{ errors['email'] || '' }</span>
@@ -50,6 +52,7 @@ const Register = () => {
                  maxLength={ 10 }
                  value={ values['password'] || '' }
                  onChange={ handleChange }
+                 placeholder='Пароль'
                  required />
           <span className='register__error'>{ errors['password'] || '' }</span>
         </label>

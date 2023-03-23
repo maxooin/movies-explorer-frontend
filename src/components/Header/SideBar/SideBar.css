@@ -31,6 +31,12 @@
   background-color: transparent;
   border: none;
   background-image: url("../../../images/close_icon.svg");
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.sidebar__button-close:hover {
+  opacity: .7;
 }
 
 .sidebar__container {
@@ -62,6 +68,13 @@
   font-weight: 500;
   line-height: 1.33;
   color: #FFFFFF;
+  cursor: pointer;
+  transition: ease-in-out 0.1s;
+}
+
+.sidebar__link:hover {
+  padding-bottom: 4px;
+  border-bottom: 2px solid #FFFFFF;
 }
 
 .sidebar__link_active {

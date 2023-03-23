@@ -3,6 +3,15 @@
   width: 396px;
 }
 
+.form__logo-link {
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.form__logo-link:hover {
+  opacity: .7;
+}
+
 .form__title {
   margin: 40px 0 16px;
   font-size: 24px;
@@ -60,6 +69,13 @@
   opacity: .7;
 }
 
+@media screen and (max-width: 1023px) {
+  .form__button {
+    margin-top: 212px;
+  }
+}
+
+
 @media screen and (max-width: 767px) {
   .form__container {
     margin: 56px auto;
@@ -78,7 +94,16 @@
   }
 
   .form__button {
-    margin-top: 222px;
+    margin-top: 304px;
+    font-size: 12px;
+  }
+
+  .form__subtext {
+    font-size: 12px;
+  }
+
+  .form__button_register {
+    margin-top: 233px;
   }
 }
 

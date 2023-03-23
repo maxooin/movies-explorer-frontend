@@ -127,6 +127,18 @@
   .profile {
     margin: 236px auto 269px;
   }
+
+  .profile__form {
+    margin-top: 82px;
+  }
+
+  .profile__label:nth-child(2n) {
+    margin-bottom: 178px;
+  }
+
+  .profile__button-exit {
+    margin-top: 14px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -137,5 +149,23 @@
 
   .profile__form {
     margin-top: 80px;
+  }
+
+  .profile__button-submit {
+    font-size: 12px;
+  }
+
+  .profile__button-exit {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .profile__label:first-of-type {
+    padding-top: 1px;
+  }
+
+
+  .profile__label:nth-child(2n) {
+    margin-bottom: 348px;
   }
 }

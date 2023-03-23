@@ -19,7 +19,7 @@ const Header = ({ loggedIn }) => {
     <>
       { isNotShow ? undefined : (
         <header className='header'>
-          <Link to='/'>
+          <Link className='header__logo-link' to='/'>
             <img src={ logo } alt='Logo' />
           </Link>
           { loggedIn ? (

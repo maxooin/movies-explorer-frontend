@@ -49,4 +49,8 @@
     height: 36px;
     font-size: 12px;
   }
+
+  .movies-card-list__container {
+    margin-top: 49px;
+  }
 }

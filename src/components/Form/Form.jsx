@@ -10,11 +10,13 @@ const Form = ({ children, title, textbtn, handleSubmit, isValid }) => {
 
   return (
     <section className="form__container">
-      <img src={ logo } alt="Логотип" />
+      <Link className='form__logo-link' to='/'>
+        <img src={ logo } alt="Логотип" />
+      </Link>
       <h2 className='form__title'>{ title }</h2>
       <form className='form' onSubmit={ handleSubmit }>
         { children }
-        <button className="form__button"
+        <button className={ `form__button ${ isRegister ? 'form__button_register' : '' }` }
                 disabled={ isValid ? '' : 'disabled' }
         >{ textbtn }</button>
         { isRegister ? (

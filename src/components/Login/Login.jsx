@@ -23,6 +23,7 @@ const Login = () => {
                  type='email'
                  value={ values['email'] || '' }
                  onChange={ handleChange }
+                 placeholder='Email'
                  required
           />
           <span className='login__error'>{ errors['email'] || '' }</span>
@@ -37,6 +38,7 @@ const Login = () => {
                  maxLength={ 10 }
                  value={ values['password'] || '' }
                  onChange={ handleChange }
+                 placeholder='Пароль'
                  required />
           <span className='login__error'>{ errors['password'] || '' }</span>
         </label>

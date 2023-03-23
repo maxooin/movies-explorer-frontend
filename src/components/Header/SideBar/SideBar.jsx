@@ -11,13 +11,13 @@ const SideBar = ({ isOpen, handleClick }) => {
           <div className='sidebar__navigation-container'>
             <NavLink onClick={ handleClick }
                      className={ ({ isActive }) => isActive ? 'sidebar__link_active' : 'sidebar__link' }
-                     to='/not-found'>Главная</NavLink>
+                     to='/'>Главная</NavLink>
             <NavLink onClick={ handleClick }
                      className={ ({ isActive }) => isActive ? 'sidebar__link_active' : 'sidebar__link' }
-                     to='/'>Фильмы</NavLink>
+                     to='/movies'>Фильмы</NavLink>
             <NavLink onClick={ handleClick }
                      className={ ({ isActive }) => isActive ? 'sidebar__link_active' : 'sidebar__link' }
-                     to='/not-found'>Сохранённые
+                     to='/saved-movies'>Сохранённые
               фильмы</NavLink>
           </div>
           <Link onClick={ handleClick }
