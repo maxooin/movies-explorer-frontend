@@ -10,6 +10,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import { cardsAll } from "../../utils/cards";
 
 
 function App() {
@@ -21,6 +22,15 @@ function App() {
   });
   const [loggedIn, setLoggedIn] = useState(true);
   const [commonError, setCommonError] = useState('')
+
+  const cards = cardsAll.slice(0, 100).map((item) => {
+    if (item.id % 2 === 0) {
+      item.owner = [123, 125]
+    } else {
+      item.owner = [124, 125]
+    }
+    return item
+  })
 
 
   function handleSubmitProfile(
