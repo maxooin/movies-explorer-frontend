@@ -73,6 +73,10 @@
   .form__button {
     margin-top: 212px;
   }
+
+  .form__button_register {
+    margin-top: 135px;
+  }
 }
 
 

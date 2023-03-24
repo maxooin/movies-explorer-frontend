@@ -1,11 +1,12 @@
 
 .search {
   margin: 80px auto;
-  max-width: 1140px;
+  max-width: calc(100% - 140px);
   display: flex;
 }
 
 .search__input-container {
+  flex: 1 1 auto;
   display: inline-flex;
   border: 1px solid rgba(170, 170, 170, .2);
   border-radius: 50px;
@@ -17,7 +18,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .search__input {
-  width: 864px;
+  flex: 1 1 auto;
   background-color: transparent;
   border: none;
   color: white;
