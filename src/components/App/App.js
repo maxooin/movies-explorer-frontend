@@ -20,7 +20,7 @@ function App() {
     _id: 5,
     email: 'm@test.ru'
   });
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [commonError, setCommonError] = useState('')
 
   const cards = cardsAll.slice(0, 100).map((item) => {
