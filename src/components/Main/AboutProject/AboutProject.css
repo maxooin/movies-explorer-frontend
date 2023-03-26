@@ -1,0 +1,127 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #DADADA;
+  padding-bottom: 23px;
+}
+
+.about-project__descriptions {
+  margin-top: 70px;
+  display: flex;
+  gap: 40px;
+}
+
+.about-project__description-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.about-project__description-subtitle {
+  margin: 26px 0 0;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.about-project__processes {
+  margin-top: 110px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: repeat(2, auto);
+  grid-row-gap: 14px;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.about-project__process-header {
+  margin: 0;
+  padding: 9px 0;
+  color: #000000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.214;
+  background-color: #3ddc84;
+  text-align: center;
+}
+
+.about-project__process-header_dark {
+  background-color: #303030;
+  color: #ffffff;
+}
+
+.about-project__process-text {
+  margin: 0;
+  padding: 0;
+  color: #8b8b8b;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.214;
+  text-align: center;
+}
+
+@media screen and (max-width: 1023px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__description-subtitle {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-project__processes {
+    margin-top: 93px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+  }
+
+  .about-project__descriptions {
+    margin-top: 60px;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .about-project__description-title {
+    font-size: 18px;
+  }
+
+  .about-project__description-subtitle {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .about-project__processes {
+    margin-top: 60px;
+  }
+
+  .about-project__processes {
+    grid-template-columns: 1fr calc(100% * 0.647);
+  }
+
+  .about-project__process-header {
+    font-size: 11px;
+  }
+
+  .about-project__process-text {
+    font-size: 11px;
+  }
+}

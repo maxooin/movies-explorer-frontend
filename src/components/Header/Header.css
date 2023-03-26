@@ -1,0 +1,142 @@
+.header {
+  padding: 16px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
+
+.header__logo-link {
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.header__logo-link:hover {
+  opacity: .7;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__link {
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 14px;
+  line-height: 1.33;
+  color: #FFFFFF;
+  transition: ease-in-out 0.1s;
+}
+
+.header__link:hover {
+  font-weight: 500;
+}
+
+.header__link_active {
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 14px;
+  line-height: 1.33;
+  color: #FFFFFF;
+}
+
+.header__sing-up {
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity 0.5s;
+}
+
+.header__sing-up:hover {
+  opacity: .7;
+}
+
+.header__sing-in {
+  padding: 8px 20px;
+  color: #000000;
+  background-color: #3DDC84;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: opacity 0.5s;
+}
+
+.header__sing-in:hover {
+  opacity: .7;
+}
+
+.header__navigation {
+  display: flex;
+  align-items: center;
+}
+
+.header__profile-button {
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.5s;
+}
+
+.header__profile-button:hover {
+  opacity: .7;
+}
+
+.header__icon {
+  margin-left: 10px;
+  padding: 9px;
+  background-color: #313131;
+  border-radius: 6px;
+}
+
+.header__burger {
+  display: none;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.header__burger:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    padding: 15px 30px;
+  }
+
+  .header__navigation {
+    display: none;
+  }
+
+  .header__burger {
+    display: block;
+    background-image: url("../../images/burger_icon.svg");
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 15px 14px;
+  }
+
+  .header__link {
+    margin-left: 14px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .header__sing-in {
+    padding: 5px 12px;
+  }
+}
