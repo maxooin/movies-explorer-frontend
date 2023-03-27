@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useForm";
 
-const Profile = ({ handleSubmitProfile }) => {
+const Profile = ({ handleSubmitProfile, handleLogout }) => {
 
-  const currentUser = React.useContext(CurrentUserContext).currentUser;
-  const commonError = React.useContext(CurrentUserContext).commonError;
   const [isDisabled, setIsDisabled] = useState(true);
-  const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormAndValidation();
-  const isChanged = values['name'] !== currentUser.name || values['email'] !== currentUser.email;
   const [isSubmitButton, setIsSubmitButton] = useState(false);
+
+  const { currentUser, commonError } = useContext(CurrentUserContext)
+  const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormAndValidation();
+
+  const isChanged = values['name'] !== currentUser.name || values['email'] !== currentUser.email;
   const isButtonDisabled = isSubmitButton ? !isValid : false;
   const textOnButton = isSubmitButton ? 'Сохранить' : 'Редактировать';
 
@@ -75,7 +76,7 @@ const Profile = ({ handleSubmitProfile }) => {
           </button>
         </fieldset>
       </form>
-      <button className="profile__button-exit">
+      <button className="profile__button-exit" onClick={ handleLogout }>
         Выйти из аккаунта
       </button>
     </section>

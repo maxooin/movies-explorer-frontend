@@ -1,12 +1,16 @@
 import React from 'react';
 import Form from "../Form/Form";
 import { useFormAndValidation } from "../../hooks/useForm";
+import { emailRegex } from "../../utils/constants";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-const Login = () => {
+const Login = ({ handleSignin }) => {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const { commonError } = React.useContext(CurrentUserContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
+    handleSignin(values)
   }
 
   return (
@@ -24,6 +28,7 @@ const Login = () => {
                  value={ values['email'] || '' }
                  onChange={ handleChange }
                  placeholder='Email'
+                 pattern={ emailRegex }
                  required
           />
           <span className='login__error'>{ errors['email'] || '' }</span>
@@ -42,6 +47,7 @@ const Login = () => {
                  required />
           <span className='login__error'>{ errors['password'] || '' }</span>
         </label>
+        <span>{ commonError }</span>
       </Form>
     </>
   );
