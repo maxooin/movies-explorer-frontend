@@ -24,11 +24,11 @@ class MainApi {
   updateUserInfo(data) {
     return fetch(`${ this._url }/users/me`, {
       method: 'PATCH',
-      body: JSON.stringify(data),
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
+      body: JSON.stringify(data)
     })
       .then(this._checkResponse)
   }
@@ -58,7 +58,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  url: 'https://api.diplom.maxooin.nomoredomains.work'
+  // url: 'https://api.diplom.maxooin.nomoredomains.work',
+  url: 'http://localhost:3000',
 });
 
 export default mainApi;

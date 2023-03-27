@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useForm";
 
-const Profile = ({ handleSubmitProfile, handleLogout }) => {
+const Profile = ({ handleEditProfile, handleLogout }) => {
 
   const [isDisabled, setIsDisabled] = useState(true);
   const [isSubmitButton, setIsSubmitButton] = useState(false);
@@ -10,14 +10,15 @@ const Profile = ({ handleSubmitProfile, handleLogout }) => {
   const { currentUser, commonError } = useContext(CurrentUserContext)
   const { values, setValues, handleChange, errors, isValid, setIsValid } = useFormAndValidation();
 
-  const isChanged = values['name'] !== currentUser.name || values['email'] !== currentUser.email;
   const isButtonDisabled = isSubmitButton ? !isValid : false;
   const textOnButton = isSubmitButton ? 'Сохранить' : 'Редактировать';
 
   function handleEditSaveButton(evt) {
     evt.preventDefault()
     if (isSubmitButton) {
-      handleSubmitProfile(setIsSubmitButton, setIsDisabled, isChanged, values)
+      handleEditProfile(values)
+      setIsSubmitButton(false)
+      setIsDisabled(true)
     } else {
       setIsSubmitButton(true)
       setIsDisabled(false)

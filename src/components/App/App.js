@@ -1,12 +1,12 @@
 import Header from "../Header/Header";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import { useEffect, useState } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import {useEffect, useState} from "react";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -49,7 +49,7 @@ function App() {
         console.log(data)
         setMessage('');
         setIsSuccess(true);
-        auth.signin({ email: data.email, password: data.password })
+        auth.signin({email: data.email, password: data.password})
           .then((item) => {
             if (item.token) {
               setLoggedIn(true)
@@ -94,13 +94,13 @@ function App() {
         }
       })
       .catch((err) => {
-        setMessage(`что-то пошло не так: ${ err.message }`)
+        setMessage(`что-то пошло не так: ${err.message}`)
       })
   }
 
   const handleEditProfile = (data) => {
     setCommonError('');
-    mainApi.updateUserInfo({ name: data.name, email: data.email })
+    mainApi.updateUserInfo({name: data.name, email: data.email})
       .then((item) => {
         setMessage('');
         setCurrentUser(item)
@@ -114,7 +114,6 @@ function App() {
         setCurrentUser(currentUser);
       })
   }
-
 
   useEffect(() => {
     auth.checkToken()
@@ -134,19 +133,20 @@ function App() {
 
   return (
     <>
-      <CurrentUserContext.Provider value={ { currentUser, commonError } }>
-        <Header loggedIn={ loggedIn } />
+      <CurrentUserContext.Provider value={{currentUser, commonError}}>
+        <Header loggedIn={loggedIn} />
         <Routes>
-          <Route exact path='/' element={ <Main /> } />
-          <Route exact path='/signup' element={ <Register handleSignup={ handleSignup } /> } />
-          <Route exact path='/signin' element={ <Login handleSignin={ handleSignin } /> } />
-          <Route exact path='/profile' element={ <PrivateRouter component={ Profile }
-                                                                handleEditProfile={ handleEditProfile }
-                                                                handleLogout={ handleLogout } /> } />
-          <Route exact path='/movies' element={ <Movies /> } />
-          <Route exact path='/saved-movies' element={ <SavedMovies /> } />
-          <Route exact path="/not-found" element={ <NotFound /> } />
-          <Route path="*" element={ <Navigate to="/not-found" replace /> } />
+          <Route exact path='/' element={<Main />} />
+          <Route exact path='/signup' element={<Register handleSignup={handleSignup} />} />
+          <Route exact path='/signin' element={<Login handleSignin={handleSignin} />} />
+          <Route exact path='/profile' element={<PrivateRouter loggedIn={loggedIn}
+                                                               component={Profile}
+                                                               handleEditProfile={handleEditProfile}
+                                                               handleLogout={handleLogout} />} />
+          <Route exact path='/movies' element={<Movies />} />
+          <Route exact path='/saved-movies' element={<SavedMovies />} />
+          <Route exact path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>
         <Footer />
       </CurrentUserContext.Provider>
