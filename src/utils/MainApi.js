@@ -7,11 +7,11 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${ res.status }`);
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getMoviesCards() {
-    return fetch(`${ this._url }/movies`, {
+    return fetch(`${this._url}/movies`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -22,7 +22,7 @@ class MainApi {
   }
 
   updateUserInfo(data) {
-    return fetch(`${ this._url }/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -34,7 +34,7 @@ class MainApi {
   }
 
   saveMoviesCard(data) {
-    return fetch(`${ this._url }/movies`, {
+    return fetch(`${this._url}/movies`, {
       method: 'POST',
       body: JSON.stringify(data),
       credentials: 'include',
@@ -46,7 +46,7 @@ class MainApi {
   }
 
   deleteMoviesCard(cardId) {
-    return fetch(`${ this._url }/movies/${ cardId }`, {
+    return fetch(`${this._url}/movies/${cardId}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -58,8 +58,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // url: 'https://api.diplom.maxooin.nomoredomains.work',
-  url: 'http://localhost:3000',
+  url: 'https://api.diplom.maxooin.nomoredomains.work',
 });
 
 export default mainApi;

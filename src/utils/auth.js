@@ -1,5 +1,4 @@
-// export const BASE_URL = 'https://api.diplom.maxooin.nomoredomains.work';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.diplom.maxooin.nomoredomains.work';
 
 function checkResponse(res) {
   return res.json()
@@ -12,7 +11,7 @@ function checkResponse(res) {
 }
 
 export const signup = (data) => {
-  return fetch(`${ BASE_URL }/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -24,7 +23,7 @@ export const signup = (data) => {
 }
 
 export function signin(data) {
-  return fetch(`${ BASE_URL }/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -36,7 +35,7 @@ export function signin(data) {
 }
 
 export const signout = () => {
-  return fetch(`${ BASE_URL }/signout`, {
+  return fetch(`${BASE_URL}/signout`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -47,7 +46,7 @@ export const signout = () => {
 }
 
 export const checkToken = () => {
-  return fetch(`${ BASE_URL }/users/me`, {
+  return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     credentials: 'include',
     headers: {

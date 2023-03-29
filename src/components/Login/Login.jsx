@@ -1,12 +1,10 @@
 import React from 'react';
 import Form from "../Form/Form";
-import { useFormAndValidation } from "../../hooks/useForm";
-import { emailRegex } from "../../utils/constants";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import {useFormAndValidation} from "../../hooks/useForm";
+import {emailRegex} from "../../utils/constants";
 
-const Login = ({ handleSignin }) => {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
-  const { commonError } = React.useContext(CurrentUserContext);
+const Login = ({handleSignin}) => {
+  const {values, handleChange, errors, isValid} = useFormAndValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
@@ -17,21 +15,21 @@ const Login = ({ handleSignin }) => {
     <>
       <Form title='Рады видеть!'
             textbtn='Войти'
-            handleSubmit={ handleSubmit }
-            isValid={ isValid }>
+            handleSubmit={handleSubmit}
+            isValid={isValid}>
         <label className='login__label'>
           E-mail
           <input className='login__input'
                  id='email'
                  name='email'
                  type='email'
-                 value={ values['email'] || '' }
-                 onChange={ handleChange }
+                 value={values['email'] || ''}
+                 onChange={handleChange}
                  placeholder='Email'
-                 pattern={ emailRegex }
+                 pattern={emailRegex}
                  required
           />
-          <span className='login__error'>{ errors['email'] || '' }</span>
+          <span className='login__error'>{errors['email'] || ''}</span>
         </label>
         <label className='login__label'>
           Пароль
@@ -39,15 +37,14 @@ const Login = ({ handleSignin }) => {
                  id='password'
                  name='password'
                  type='password'
-                 minLength={ 3 }
-                 maxLength={ 10 }
-                 value={ values['password'] || '' }
-                 onChange={ handleChange }
+                 minLength={3}
+                 maxLength={10}
+                 value={values['password'] || ''}
+                 onChange={handleChange}
                  placeholder='Пароль'
                  required />
-          <span className='login__error'>{ errors['password'] || '' }</span>
+          <span className='login__error'>{errors['password'] || ''}</span>
         </label>
-        <span>{ commonError }</span>
       </Form>
     </>
   );

@@ -2,24 +2,24 @@ export const nameRegex = "[а-яА-ЯёЁa-zA-Z -]+";
 export const emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\\.[A-Za-z]{2,4}";
 const shortMovie = 40;
 const widthScreen = {
-  medium: 1023,
+  medium: 1217,
   small: 767,
 }
 const quantityMovies = {
-  lage: { cards: 12, more: 3 },
-  medium: { cards: 8, more: 3 },
-  small: { cards: 5, more: 2 },
+  lage: {cards: 12, more: 3},
+  medium: {cards: 8, more: 3},
+  small: {cards: 5, more: 2},
 }
 
-export const searchMovies = (cards, title) => {
-  if (title === undefined) {
+export const searchMovies = (cards, searchString) => {
+  if (searchString === undefined) {
     return cards;
   }
   return cards.filter((item) => {
     let res = false;
-    if (item.nameRU.toLowerCase().includes(title.toLowerCase())) {
+    if (item.nameRU.toLowerCase().includes(searchString.toLowerCase())) {
       res = true;
-    } else if (item.nameEN.toLowerCase().includes(title.toLowerCase())) {
+    } else if (item.nameEN.toLowerCase().includes(searchString.toLowerCase())) {
       res = true;
     }
     return res;

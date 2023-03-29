@@ -13,9 +13,15 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import * as auth from "../../utils/auth";
 import mainApi from "../../utils/MainApi";
 import PrivateRouter from "../PrivateRoute/PrivateRouter";
+import {quantityMoviesToMount, searchMovies, shortFilter} from "../../utils/constants";
+import moviesApi from "../../utils/MoviesApi";
 
 
 function App() {
+
+  const moviesFromLocalStorage = JSON.parse(localStorage.getItem("filteredCards")) || [];
+  const textForSearchFromLocalStorage = localStorage.getItem("textForSearch") || false;
+  const isShortMoviesFromLocalStorage = JSON.parse(localStorage.getItem("isShortMovies")) || false;
 
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -25,30 +31,28 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState('');
   const [isFirstSearch, setIsFirstSearch] = useState(true);
-  const [isButtonMoreDispayed, setIsButtonMoreDispayed] = useState(false);
+  const [isButtonMoreDisplayed, setIsButtonMoreDisplayed] = useState(false);
   const [cardsForDisplay, setCardsForDisplay] = useState([]);
-  // const [cardsFiltered, setCardsFiltered] = useState(moviesFromLocalStorage);
+  const [cardsFiltered, setCardsFiltered] = useState(moviesFromLocalStorage);
   const [savedCards, setSavedCards] = useState([]);
   const [savedCardsFiltered, setSavedCardsFiltered] = useState([]);
   const [savedCardsForDisplay, setSavedCardsForDisplay] = useState([]);
 
-  /* const moviesFromLocalStorage = JSON.parse(localStorage.getItem("filteredCards")) || [];
-   const textForSearchFromLocalStorage = localStorage.getItem("textForSearch") || false;
-   const isShortFilmsFromLocalStorage = JSON.parse(localStorage.getItem("isShortFilms")) || false;*/
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isLocationMovies = location.pathname === '/movies';
+
+  let timeOutFunctionId;
 
   const handleSignup = (data) => {
     setCommonError('');
     auth.signup(data)
       .then(() => {
         console.log(data)
-        setMessage('');
-        setIsSuccess(true);
+        setCommonError('');
         auth.signin({email: data.email, password: data.password})
           .then((item) => {
             if (item.token) {
@@ -72,7 +76,7 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate('/profile')
+          navigate('/movies')
         }
       })
       .catch((err) => {
@@ -94,7 +98,7 @@ function App() {
         }
       })
       .catch((err) => {
-        setMessage(`что-то пошло не так: ${err.message}`)
+        setCommonError(`что-то пошло не так: ${err.message}`)
       })
   }
 
@@ -102,7 +106,7 @@ function App() {
     setCommonError('');
     mainApi.updateUserInfo({name: data.name, email: data.email})
       .then((item) => {
-        setMessage('');
+        setCommonError('');
         setCurrentUser(item)
       })
       .catch((err) => {
@@ -114,6 +118,150 @@ function App() {
         setCurrentUser(currentUser);
       })
   }
+  const chooseMovies = (cardsMovies, searchText) => {
+    const filteredCards = searchMovies(cardsMovies, searchText);
+    setCardsFiltered(filteredCards);
+
+    const shortFilteredCards = shortFilter(filteredCards, isShortMovies);
+    setCardsForDisplay(shortFilteredCards.slice(0, quantityMoviesToMount(width).cards));
+
+    if (shortFilteredCards.length > 0) {
+      setIsButtonMoreDisplayed(shortFilteredCards.length > shortFilteredCards.slice(0, quantityMoviesToMount(width).cards).length);
+    } else {
+      setIsButtonMoreDisplayed(false)
+    }
+
+    localStorage.setItem('textForSearch', searchText);
+    localStorage.setItem('filteredCards', JSON.stringify(filteredCards));
+    localStorage.setItem('isShortMovies', isShortMovies)
+  }
+
+  const handleSearchMovies = (searchText) => {
+    if (isFirstSearch) {
+      setIsLoading(true);
+      setIsFailed(false);
+      moviesApi.getMoviesCards()
+        .then((data) =>
+          Promise.all(moviesApi.filterCards(data))
+        )
+        .then((res) => {
+          setCards(res);
+          chooseMovies(res, searchText);
+          setIsFirstSearch(false);
+        })
+        .catch(() => {
+          setIsFailed(true)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
+    } else {
+      setIsLoading(true);
+      chooseMovies(cards, searchText);
+      setIsLoading(false);
+    }
+  }
+
+  const handleSearchSavedMovies = (searchText) => {
+    setIsLoading(true);
+    const filteredCards = searchMovies(savedCards, searchText);
+    setSavedCardsFiltered(filteredCards);
+
+    const shortFilteredCards = shortFilter(filteredCards, isShortMovies);
+    setSavedCardsForDisplay(shortFilteredCards);
+
+    setIsLoading(false);
+  }
+
+  const handleShortMovies = () => {
+    if (isLocationMovies) {
+      const cardsResult = shortFilter(cardsFiltered, !isShortMovies);
+      setCardsForDisplay(cardsResult.slice(0, quantityMoviesToMount(width).cards));
+      if (cardsResult.length > 0) {
+        setIsButtonMoreDisplayed(cardsResult.length > cardsResult.slice(0, quantityMoviesToMount(width).cards).length);
+      } else {
+        setIsButtonMoreDisplayed(false)
+      }
+      localStorage.setItem('isShortMovies', !isShortMovies);
+    } else {
+      const shortFilteredCards = shortFilter(savedCardsFiltered, !isShortMovies);
+      setSavedCardsForDisplay(shortFilteredCards)
+    }
+  }
+
+  const handleSaveMovies = (cardSave) => {
+    mainApi.saveMoviesCard(cardSave)
+      .then((newCard) => {
+        setSavedCards([...savedCards, newCard]);
+      })
+      .catch((err) => {
+        if (err === 401) {
+          setLoggedIn(false);
+          setCurrentUser({});
+          localStorage.clear();
+        }
+      })
+  }
+
+  const handleDeleteMovies = (deleteCard) => {
+    const cardDelete = savedCards.filter((item) => item.movieId === deleteCard.movieId && item.owner === currentUser._id)
+
+    cardDelete.forEach((res) => {
+      mainApi.deleteMoviesCard(res._id)
+        .then(() => {
+          setSavedCards(savedCards.filter((item) => item._id !== res._id));
+        })
+        .catch((err) => {
+          if (err === 401) {
+            setLoggedIn(false);
+            setCurrentUser({});
+            localStorage.clear();
+          }
+        })
+    })
+  }
+
+  const handleButtonMore = () => {
+    const cardsQuantity = cardsForDisplay.length + quantityMoviesToMount(width).more;
+    const cardsResult = shortFilter(cardsFiltered, isShortMovies);
+
+    if (cardsResult.length > cardsForDisplay.length) {
+      setCardsForDisplay(cardsResult.slice(0, cardsQuantity));
+    }
+
+    if (cardsQuantity >= cardsResult.length) {
+      setIsButtonMoreDisplayed(false);
+    }
+  }
+
+  useEffect(() => {
+    if (loggedIn) {
+      mainApi.getMoviesCards()
+        .then((cardsData) => {
+          setSavedCards(() => cardsData);
+          setSavedCardsFiltered(cardsData);
+          setSavedCardsForDisplay(cardsData)
+        })
+        .catch((err) => {
+          setCommonError(`При загрузке сохранённых карточек с сервера произошла ошибка: ${err.message}`)
+        });
+
+      if (isLocationMovies) {
+        setIsShortMovies(isShortMoviesFromLocalStorage)
+        setCardsForDisplay(() =>
+          textForSearchFromLocalStorage
+            ? shortFilter(moviesFromLocalStorage, isShortMoviesFromLocalStorage).slice(0, quantityMoviesToMount(width).cards) : [])
+        if (moviesFromLocalStorage.length > quantityMoviesToMount(width).cards) {
+          setIsButtonMoreDisplayed(true);
+        } else {
+          setIsButtonMoreDisplayed(false);
+        }
+      } else {
+        setIsShortMovies(false);
+      }
+      setCommonError('')
+    }
+  }, [location])
 
   useEffect(() => {
     auth.checkToken()
@@ -125,11 +273,24 @@ function App() {
       })
       .catch((err) => {
         if (err.message !== 'Отсутствует авторизационный заголовок или cookies') {
-          setMessage(err.message)
+          setCommonError(err.message)
         }
         setLoggedIn(false)
       })
   }, [loggedIn])
+
+  useEffect(() => {
+    const handleResize = (evt) => {
+      clearTimeout(timeOutFunctionId);
+      timeOutFunctionId = setTimeout(() => {
+        setWidth(evt.target.innerWidth);
+      }, 300);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   return (
     <>
@@ -143,8 +304,32 @@ function App() {
                                                                component={Profile}
                                                                handleEditProfile={handleEditProfile}
                                                                handleLogout={handleLogout} />} />
-          <Route exact path='/movies' element={<Movies />} />
-          <Route exact path='/saved-movies' element={<SavedMovies />} />
+          <Route exact path='/movies' element={<PrivateRouter loggedIn={loggedIn}
+                                                              component={Movies}
+                                                              isLoading={isLoading}
+                                                              isFailed={isFailed}
+                                                              cards={cardsForDisplay}
+                                                              isButtonMoreDisplayed={isButtonMoreDisplayed}
+                                                              handleButtonMoreClick={handleButtonMore}
+                                                              isShortMovies={isShortMovies}
+                                                              setIsShortMovies={setIsShortMovies}
+                                                              handleShortMovies={handleShortMovies}
+                                                              handleDeleteMovies={handleDeleteMovies}
+                                                              handleSaveMovies={handleSaveMovies}
+                                                              handleSearchMovies={handleSearchMovies}
+                                                              savedTextForSearch={textForSearchFromLocalStorage}
+                                                              savedCards={savedCards} />} />
+          <Route exact path='/saved-movies' element={<PrivateRouter loggedIn={loggedIn}
+                                                                    component={SavedMovies}
+                                                                    isLoading={isLoading}
+                                                                    isFailed={isFailed}
+                                                                    cards={savedCardsForDisplay}
+                                                                    isShortMovies={isShortMovies}
+                                                                    setIsShortMovies={setIsShortMovies}
+                                                                    handleShortMovies={handleShortMovies}
+                                                                    handleDeleteMovies={handleDeleteMovies}
+                                                                    handleSearchSavedMovies={handleSearchSavedMovies}
+                                                                    savedCards={savedCards} />} />
           <Route exact path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>

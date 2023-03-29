@@ -1,5 +1,5 @@
 class MoviesApi {
-  constructor({ url, serverUrl }) {
+  constructor({url, serverUrl}) {
     this._url = url;
     this._serverUrl = serverUrl;
   }
@@ -8,11 +8,11 @@ class MoviesApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${ res.status }`);
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getMoviesCards() {
-    return fetch(`${ this._url }`, {
+    return fetch(`${this._url}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -43,8 +43,8 @@ class MoviesApi {
         nameRU,
         nameEN
       }
-      fullCard.image = `${ this._serverUrl }${ item.image.url }`;
-      fullCard.thumbnail = `${ this._serverUrl }${ item.formats.thumbnail.url }`;
+      fullCard.image = `${this._serverUrl}${item.image.url}`;
+      fullCard.thumbnail = `${this._serverUrl}${item.image.formats.thumbnail.url}`;
       fullCard.movieId = item.id;
       return fullCard;
     })
@@ -53,6 +53,6 @@ class MoviesApi {
 
 const moviesApi = new MoviesApi({
   url: 'https://api.nomoreparties.co/beatfilm-movies',
-  serverUrl: 'https://api.nomoreparties.co/'
+  serverUrl: 'https://api.nomoreparties.co'
 })
 export default moviesApi;
