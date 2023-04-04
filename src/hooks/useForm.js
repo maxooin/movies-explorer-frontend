@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {useCallback, useState} from "react";
 
 
 export const useFormAndValidation = () => {
@@ -6,16 +6,18 @@ export const useFormAndValidation = () => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
+  const [initialState, setInitialState] = useState(false);
 
   const handleChange = (evt) => {
 
-    const { value, name } = evt.target;
+    const {value, name} = evt.target;
 
-    setValues({ ...values, [name]: value });
+    setValues({...values, [name]: value});
 
-    setErrors({ ...errors, [name]: evt.target.validationMessage });
+    setErrors({...errors, [name]: evt.target.validationMessage});
 
     setIsValid(evt.target.closest('form').checkValidity())
+    setInitialState(false)
   };
 
   const resetForm = useCallback((newValues = {}, newErrors = {}, newIsValid = false) => {
@@ -24,5 +26,5 @@ export const useFormAndValidation = () => {
     setIsValid(newIsValid);
   }, [setValues, setErrors, setIsValid]);
 
-  return { values, setValues, handleChange, errors, isValid, setIsValid, resetForm };
+  return {values, setValues, handleChange, errors, isValid, setIsValid, resetForm, setInitialState, initialState};
 }

@@ -51,11 +51,10 @@ function App() {
     setCommonError('');
     auth.signup(data)
       .then(() => {
-        console.log(data)
         setCommonError('');
         auth.signin({email: data.email, password: data.password})
-          .then((item) => {
-            if (item.token) {
+          .then((res) => {
+            if (res) {
               setLoggedIn(true)
               navigate('/movies')
             }

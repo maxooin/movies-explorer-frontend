@@ -3,7 +3,7 @@ import logo from '../../images/logo/logo.svg'
 import {Link, useLocation} from "react-router-dom";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-const Form = ({children, title, textbtn, handleSubmit, isValid}) => {
+const Form = ({children, title, textbtn, handleSubmit, isValid, initialState}) => {
 
   const {commonError} = React.useContext(CurrentUserContext);
 
@@ -20,7 +20,7 @@ const Form = ({children, title, textbtn, handleSubmit, isValid}) => {
       <form className='form' onSubmit={handleSubmit}>
         {children}
         <div className={`form__button-container ${isRegister ? 'form__button-container_register' : ''}`}>
-          <p className='form__error'>{commonError}</p>
+          <p className='form__error'>{initialState ? commonError : ''}</p>
           <button className='form__button'
                   disabled={isValid ? '' : 'disabled'}
           >{textbtn}</button>

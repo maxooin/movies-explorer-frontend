@@ -4,10 +4,11 @@ import {useFormAndValidation} from "../../hooks/useForm";
 import {emailRegex} from "../../utils/constants";
 
 const Login = ({handleSignin}) => {
-  const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setInitialState, initialState} = useFormAndValidation();
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
+    setInitialState(true);
     handleSignin(values)
   }
 
@@ -16,7 +17,8 @@ const Login = ({handleSignin}) => {
       <Form title='Рады видеть!'
             textbtn='Войти'
             handleSubmit={handleSubmit}
-            isValid={isValid}>
+            isValid={isValid}
+            initialState={initialState}>
         <label className='login__label'>
           E-mail
           <input className='login__input'

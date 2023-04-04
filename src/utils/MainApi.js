@@ -58,7 +58,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  url: 'https://api.diplom.maxooin.nomoredomains.work',
+  // url: 'https://api.diplom.maxooin.nomoredomains.work',
+  url: 'http://localhost:3000',
 });
 
 export default mainApi;
