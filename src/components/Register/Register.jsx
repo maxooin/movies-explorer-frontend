@@ -5,13 +5,15 @@ import {emailRegex, nameRegex} from "../../utils/constants";
 import {useNavigate} from "react-router-dom";
 
 const Register = ({handleSignup, loggedIn}) => {
-  const {values, handleChange, errors, isValid} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid, setInitialState, initialState} = useFormAndValidation();
 
   const navigate = useNavigate();
 
 
   const handleSubmit = (evt) => {
-    evt.preventDefault()
+    evt.preventDefault();
+    setInitialState(true);
+    setIsValid(false);
     handleSignup(values)
   }
 
@@ -26,7 +28,8 @@ const Register = ({handleSignup, loggedIn}) => {
       <Form title='Добро пожаловать!'
             textbtn='Зарегистрироваться'
             handleSubmit={handleSubmit}
-            isValid={isValid}>
+            isValid={isValid}
+            initialState={initialState}>
         <label className='register__label'>
           Имя
           <input className='register__input'

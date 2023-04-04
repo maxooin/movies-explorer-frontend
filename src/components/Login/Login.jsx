@@ -5,13 +5,14 @@ import {emailRegex} from "../../utils/constants";
 import {useNavigate} from "react-router-dom";
 
 const Login = ({handleSignin, loggedIn}) => {
-  const {values, handleChange, errors, isValid, setInitialState, initialState} = useFormAndValidation();
+  const {values, handleChange, errors, isValid, setIsValid, setInitialState, initialState} = useFormAndValidation();
 
   const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
     setInitialState(true);
+    setIsValid(false);
     handleSignin(values)
   }
 
