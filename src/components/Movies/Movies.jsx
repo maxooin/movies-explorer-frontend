@@ -20,7 +20,9 @@ const Movies = ({
                 }) => {
   let message;
 
-  const isFound = savedTextForSearch ? cards.length > 0 : false;
+  const isFound = savedTextForSearch ? cards.length > 0 : true;
+
+  console.log(isFound)
 
   if (isFailed) {
     message = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';

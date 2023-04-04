@@ -7,7 +7,7 @@ const widthScreen = {
 }
 const quantityMovies = {
   lage: {cards: 12, more: 3},
-  medium: {cards: 8, more: 3},
+  medium: {cards: 8, more: 2},
   small: {cards: 5, more: 2},
 }
 

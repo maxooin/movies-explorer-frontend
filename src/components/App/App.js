@@ -142,7 +142,7 @@ function App() {
     localStorage.setItem('filteredCards', JSON.stringify(filteredCards));
     localStorage.setItem('isShortMovies', isShortMovies)
   }
-
+  
   const handleSearchMovies = (searchText) => {
     if (isFirstSearch) {
       setIsLoading(true);
