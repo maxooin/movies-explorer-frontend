@@ -15,6 +15,7 @@ import mainApi from "../../utils/MainApi";
 import PrivateRouter from "../PrivateRoute/PrivateRouter";
 import {quantityMoviesToMount, searchMovies, shortFilter} from "../../utils/constants";
 import moviesApi from "../../utils/MoviesApi";
+import Toast from "../Toast/Toast";
 
 
 function App() {
@@ -38,6 +39,11 @@ function App() {
   const [savedCards, setSavedCards] = useState([]);
   const [savedCardsFiltered, setSavedCardsFiltered] = useState([]);
   const [savedCardsForDisplay, setSavedCardsForDisplay] = useState([]);
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState({
+    title: '',
+    text: ''
+  });
 
 
   const navigate = useNavigate();
@@ -106,6 +112,8 @@ function App() {
     mainApi.updateUserInfo({name: data.name, email: data.email})
       .then((item) => {
         setCommonError('');
+        setIsToastVisible(true)
+        setToastMessage({title: 'Успех!', text: 'Профиль успешно обновлён'})
         setCurrentUser(item)
       })
       .catch((err) => {
@@ -333,6 +341,9 @@ function App() {
           <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>
         <Footer />
+        <Toast isToastVisible={isToastVisible}
+               setIsToastVisible={setIsToastVisible}
+               message={toastMessage} />
       </CurrentUserContext.Provider>
     </>
   );
