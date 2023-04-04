@@ -142,7 +142,7 @@ function App() {
     localStorage.setItem('filteredCards', JSON.stringify(filteredCards));
     localStorage.setItem('isShortMovies', isShortMovies)
   }
-  
+
   const handleSearchMovies = (searchText) => {
     if (isFirstSearch) {
       setIsLoading(true);
@@ -305,8 +305,8 @@ function App() {
         <Header loggedIn={loggedIn} />
         <Routes>
           <Route exact path='/' element={<Main />} />
-          <Route exact path='/signup' element={<Register handleSignup={handleSignup} />} />
-          <Route exact path='/signin' element={<Login handleSignin={handleSignin} />} />
+          <Route exact path='/signup' element={<Register handleSignup={handleSignup} loggedIn={loggedIn} />} />
+          <Route exact path='/signin' element={<Login handleSignin={handleSignin} loggedIn={loggedIn} />} />
           <Route exact path='/profile' element={<PrivateRouter loggedIn={loggedIn}
                                                                component={Profile}
                                                                handleEditProfile={handleEditProfile}

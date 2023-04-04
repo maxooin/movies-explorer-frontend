@@ -1,16 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Form from "../Form/Form";
 import {useFormAndValidation} from "../../hooks/useForm";
 import {emailRegex} from "../../utils/constants";
+import {useNavigate} from "react-router-dom";
 
-const Login = ({handleSignin}) => {
+const Login = ({handleSignin, loggedIn}) => {
   const {values, handleChange, errors, isValid, setInitialState, initialState} = useFormAndValidation();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
     setInitialState(true);
     handleSignin(values)
   }
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/')
+    }
+  }, [loggedIn])
 
   return (
     <>
