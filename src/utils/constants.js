@@ -2,13 +2,13 @@ export const nameRegex = "[а-яА-ЯёЁa-zA-Z -]+";
 export const emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\\.[A-Za-z]{2,4}";
 const shortMovie = 40;
 const widthScreen = {
-  medium: 1217,
+  medium: 1279,
   small: 767,
 }
 const quantityMovies = {
-  lage: {cards: 12, more: 3},
-  medium: {cards: 8, more: 2},
-  small: {cards: 5, more: 2},
+  lage: { cards: 12, more: 3 },
+  medium: { cards: 8, more: 2 },
+  small: { cards: 5, more: 2 },
 }
 
 export const searchMovies = (cards, searchString) => {
