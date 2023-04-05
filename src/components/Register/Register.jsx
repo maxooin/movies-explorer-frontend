@@ -1,33 +1,49 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Form from "../Form/Form";
-import { useFormAndValidation } from "../../hooks/useForm";
+import {useFormAndValidation} from "../../hooks/useForm";
+import {emailRegex, nameRegex} from "../../utils/constants";
+import {useNavigate} from "react-router-dom";
 
-const Register = () => {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+const Register = ({handleSignup, loggedIn}) => {
+  const {values, handleChange, errors, isValid, setIsValid, setInitialState, initialState} = useFormAndValidation();
+
+  const navigate = useNavigate();
+
 
   const handleSubmit = (evt) => {
-    evt.preventDefault()
+    evt.preventDefault();
+    setInitialState(true);
+    setIsValid(false);
+    handleSignup(values)
   }
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/')
+    }
+  }, [loggedIn])
 
   return (
     <>
       <Form title='Добро пожаловать!'
             textbtn='Зарегистрироваться'
-            handleSubmit={ handleSubmit }
-            isValid={ isValid }>
+            handleSubmit={handleSubmit}
+            isValid={isValid}
+            initialState={initialState}>
         <label className='register__label'>
           Имя
           <input className='register__input'
-                 id='username'
-                 name='username'
+                 id='name'
+                 name='name'
                  type='text'
-                 minLength={ 2 }
-                 maxLength={ 30 }
-                 value={ values['username'] || '' }
-                 onChange={ handleChange }
+                 minLength={2}
+                 maxLength={30}
+                 value={values['name'] || ''}
+                 onChange={handleChange}
                  placeholder='Имя'
+                 pattern={nameRegex}
                  required />
-          <span className='register__error'>{ errors['username'] || '' }</span>
+          <span className='register__error'>{errors['name'] || ''}</span>
         </label>
         <label className='register__label'>
           E-mail
@@ -35,12 +51,13 @@ const Register = () => {
                  id='email'
                  name='email'
                  type='email'
-                 value={ values['email'] || '' }
-                 onChange={ handleChange }
+                 value={values['email'] || ''}
+                 onChange={handleChange}
                  placeholder='Email'
+                 pattern={emailRegex}
                  required
           />
-          <span className='register__error'>{ errors['email'] || '' }</span>
+          <span className='register__error'>{errors['email'] || ''}</span>
         </label>
         <label className='register__label'>
           Пароль
@@ -48,13 +65,13 @@ const Register = () => {
                  id='password'
                  name='password'
                  type='password'
-                 minLength={ 3 }
-                 maxLength={ 10 }
-                 value={ values['password'] || '' }
-                 onChange={ handleChange }
+                 minLength={3}
+                 maxLength={10}
+                 value={values['password'] || ''}
+                 onChange={handleChange}
                  placeholder='Пароль'
                  required />
-          <span className='register__error'>{ errors['password'] || '' }</span>
+          <span className='register__error'>{errors['password'] || ''}</span>
         </label>
       </Form>
     </>

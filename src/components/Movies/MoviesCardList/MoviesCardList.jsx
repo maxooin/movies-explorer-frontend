@@ -1,26 +1,30 @@
-import React from 'react';
-import { cardsAll } from "../../../utils/cards";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
 
-const MoviesCardList = () => {
-
-  const currentUser = React.useContext(CurrentUserContext).currentUser;
-
-  function handleSaveFilm(cardForSave) {
-    cardForSave.owner.push(currentUser._id)
-  }
+const MoviesCardList = ({
+                          cards,
+                          handleButtonMoreClick,
+                          handleDeleteMovies,
+                          handleSaveMovies,
+                          isButtonMoreDisplayed,
+                          savedCards,
+                          loggedIn
+                        }) => {
 
   return (
     <div className='movies-card-list'>
       <div className='movies-card-list__container'>
-        { cardsAll.map((card) => (
-          <MoviesCard key={ card.id }
-                      card={ card }
-                      handleSaveFilm={ handleSaveFilm } />
-        )) }
+        {cards.map((card) => (
+          <MoviesCard key={card.movieId}
+                      card={card}
+                      handleDeleteMovie={handleDeleteMovies}
+                      handleSaveMovie={handleSaveMovies}
+                      saveCards={savedCards}
+                      loggedIn={loggedIn} />
+        ))}
       </div>
-      <button className='movies-card-list__button'>Ещё</button>
+      {isButtonMoreDisplayed ? (
+        <button className='movies-card-list__button' onClick={handleButtonMoreClick}>Ещё</button>
+      ) : undefined}
     </div>
   );
 };
